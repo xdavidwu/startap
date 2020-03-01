@@ -31,6 +31,9 @@ APHW=12:34:56:78:90:ab
 # if set, generate a random mac, overwrites $APHW
 RND_APHW=
 
+# if set, set reg domain to it
+REG=
+
 # channel config copy from which iface (if it got an ip)
 # useful if it is also on $PHY (#channels limit)
 # leave empty if not needed
@@ -65,6 +68,9 @@ fi
 if [ -n "$CHANNEL_IFACE" ] && [ -n "$(ip a show $CHANNEL_IFACE | grep inet)" ];then
 	CHANNEL=$(iw dev $CHANNEL_IFACE info | cut -f 2 | grep channel | -f 2 cut -d ' ')
 	sed -i "{s/^channel=.*/channel=$CHANNEL/}" /etc/hostapd/hostapd.conf
+fi
+if [ -n "$REG" ];then
+	iw reg set $REG
 fi
 hostapd -B /etc/hostapd/hostapd.conf
 sleep 1 # to wait for hostapd ready
