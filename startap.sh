@@ -23,7 +23,7 @@ IFACE=ap0
 PHY=phy0
 
 # ip of $IFACE
-APIP=192.168.40.1
+APIP=192.168.40.1/24
 
 # mac of $IFACE, leave empty if no need to change
 APHW=12:34:56:78:90:ab
