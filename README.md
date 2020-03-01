@@ -8,7 +8,7 @@ Automatically unblock phy, create dev, set mac, set up masq nat, set channel opt
 
 ### Commands
 
-* ifconfig
+* ip
 
 * hostapd
 
