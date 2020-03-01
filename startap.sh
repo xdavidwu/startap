@@ -30,6 +30,9 @@ APIP=192.168.40.1
 # mac of $IFACE, leave empty if no need to change
 APHW=12:34:56:78:90:ab
 
+# if set, generate a random mac, overwrites APHW
+RND_APHW=
+
 # channel config copy from which iface (if it got an ip)
 # useful if it is also on $PHY (#channels limit)
 # leave empty if not needed
@@ -38,6 +41,10 @@ CHANNEL_IFACE=wlan0
 if [ ! -n "$(id | grep uid\=0\(root\))" ];then
 	echo "$0: Permission denied"
 	exit 13
+fi
+
+if [ -n "$RND_APHW" ];then
+	APHW=$(printf '%02x' $((0x$(od /dev/urandom -A n -N 1 -t x1 | tr -d ' ') | 0x02 & 0xfe)); od /dev/urandom -A n -N 5 -t x1 | tr ' ' ':')
 fi
 
 modprobe iptable_nat || true
