@@ -45,7 +45,7 @@ if [ ! -n "$(id | grep uid\=0\(root\))" ];then
 fi
 
 if [ -n "$RND_APHW" ];then
-	APHW=$(printf '%02x' $((0x$(od /dev/urandom -A n -N 1 -t x1 | tr -d ' ') | 0x02 & 0xfe)); od /dev/urandom -A n -N 5 -t x1 | tr ' ' ':')
+	APHW=$(printf '%02x' $((0x$(od /dev/urandom -A n -N 1 -t x1 | tr -d ' ') & 0xfe | 0x02)); od /dev/urandom -A n -N 5 -t x1 | tr ' ' ':')
 fi
 
 modprobe iptable_nat || true
