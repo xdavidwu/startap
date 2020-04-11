@@ -39,7 +39,7 @@ REG=
 # leave empty if not needed
 CHANNEL_IFACE=wlan0
 
-if [ ! -n "$(id | grep \=0\(root\))" ];then
+if [ 0 != "$(id -u)" ];then
 	echo "$0: Permission denied"
 	exit 13
 fi
