@@ -66,7 +66,7 @@ if [ -z "$(iptables -t nat -L POSTROUTING | grep MASQUERADE)" ];then
 	iptables -t nat -A POSTROUTING -j MASQUERADE
 fi
 if [ -n "$CHANNEL_IFACE" ] && [ -n "$(ip a show $CHANNEL_IFACE | grep inet)" ];then
-	CHANNEL=$(iw dev $CHANNEL_IFACE info | cut -f 2 | grep channel | -f 2 cut -d ' ')
+	CHANNEL=$(iw dev $CHANNEL_IFACE info | cut -f 2 | grep channel | cut -f 2 -d ' ')
 	sed -i "{s/^channel=.*/channel=$CHANNEL/}" /etc/hostapd/hostapd.conf
 fi
 if [ -n "$REG" ];then
