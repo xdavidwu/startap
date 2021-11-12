@@ -63,7 +63,7 @@ if [ -n "$APHW" ];then
 	ip l set $IFACE address $APHW
 fi
 if [ -z "$(iptables -t nat -L POSTROUTING | grep MASQUERADE)" ];then
-	iptables -t nat -A POSTROUTING -j MASQUERADE
+	iptables -t nat -A POSTROUTING --src $APIP \! --dst $APIP -j MASQUERADE
 fi
 if [ -n "$CHANNEL_IFACE" ] && [ -n "$(ip a show $CHANNEL_IFACE | grep inet)" ];then
 	CHANNEL=$(iw dev $CHANNEL_IFACE info | cut -f 2 | grep channel | cut -f 2 -d ' ')
